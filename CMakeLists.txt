@@ -28,16 +28,20 @@ string(APPEND CMAKE_CXX_FLAGS " -Wshadow -Wnon-virtual-dtor")
 
 # new versions of cmake contain gtest search files
 # commented out to increase the build speed.
-# hunter_add_package(GTest)
+hunter_add_package(Beast)
+hunter_add_package(GTest)
+hunter_add_package(nlohmann_json)
+find_package(Beast CONFIG REQUIRED)
 find_package(GTest CONFIG REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
 
 add_library(${PROJECT_NAME} STATIC
-  # enum your files and delete this comment
-  ${CMAKE_CURRENT_SOURCE_DIR}/sources/example.cpp
-)
+        sources/example.cpp
+        include/example.hpp
+        include/lambda.hpp)
 
 add_executable(demo
-  ${CMAKE_CURRENT_SOURCE_DIR}/demo/main.cpp
+    demo/main.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -45,7 +49,12 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   "$<INSTALL_INTERFACE:include>"
 )
 
-target_link_libraries(demo ${PROJECT_NAME})
+target_link_libraries(
+        demo
+        PUBLIC
+        ${PROJECT_NAME}
+        Beast::Beast
+        nlohmann_json::nlohmann_json)
 
 if(BUILD_TESTS)
   add_executable(tests
