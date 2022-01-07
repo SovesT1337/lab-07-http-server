@@ -2,8 +2,8 @@
 // Created by sovest on 07.01.2022.
 //
 
-#ifndef TEMPLATE_LAMBDA_HPP
-#define TEMPLATE_LAMBDA_HPP
+#ifndef INCLUDE_LAMBDA_HPP_
+#define INCLUDE_LAMBDA_HPP_
 
 #include <example.hpp>
 
@@ -29,4 +29,4 @@ struct send_lambda {
   }
 };
 
-#endif  // TEMPLATE_LAMBDA_HPP
+#endif  // INCLUDE_LAMBDA_HPP_
